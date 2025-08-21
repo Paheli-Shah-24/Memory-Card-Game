@@ -36,9 +36,9 @@ class Card(tk.Button):
         self.__name = name #keeps track of name and is weakly private 
         
     def face_down(self, i, rely): #gets the image from computer
-        image = ImageTk.PhotoImage(Image.open("card.png").resize((124, 124)))
+        image = ImageTk.PhotoImage(Image.open("images/card.png").resize((124, 124)))
         if self.grey: #check for colorblind
-            image = ImageTk.PhotoImage(Image.open("card.png").convert("L")
+            image = ImageTk.PhotoImage(Image.open("images/card.png").convert("L")
                                        .resize((124, 124))) #makes it greyscale
         self.configure(bg="white", image=image, command=self.face_up)
         self.image = image       #puts image on card button
@@ -47,9 +47,9 @@ class Card(tk.Button):
         
     def re_face_down(self):
         self.set_open(False) #tells system that card is closed
-        image = ImageTk.PhotoImage(Image.open("card.png").resize((124, 124)))
+        image = ImageTk.PhotoImage(Image.open("images/card.png").resize((124, 124)))
         if self.grey: #check for colorblind
-            image = ImageTk.PhotoImage(Image.open("card.png").convert("L")
+            image = ImageTk.PhotoImage(Image.open("images/card.png").convert("L")
                                        .resize((124, 124)))
         self.configure(image=image) #puts image on card button
         self.image = image #stores it
@@ -211,7 +211,7 @@ class Deck(Board):
                 point = 1 #assigns point
                 if name in self.specials:
                     point = 2 #assigns point
-                card = Card(self,point, str(name) + ".png",self.grey)
+                card = Card(self,point, "images/" + str(name) + ".png",self.grey)
                 card.face_down(i, j) #puts the card on screen
                 cards.append(card) #adds to list for future use
         return cards
@@ -222,9 +222,9 @@ class Deck(Board):
     def place_hearts(self):
         hearts = []
         for i in range(self.lives): #gets the image for lives
-            image = ImageTk.PhotoImage(Image.open("heart.png").resize((80, 80)))
+            image = ImageTk.PhotoImage(Image.open("images/heart.png").resize((80, 80)))
             if self.grey: #checks for colorblind
-                image = ImageTk.PhotoImage(Image.open("heartw.png").resize((80,
+                image = ImageTk.PhotoImage(Image.open("images/heartw.png").resize((80,
                                                                         80)))
             heart = tk.Label(self, image=image, bg="black") 
             heart.place(relx=(0.3 + (0.05) * i), rely=0.08) #puts in on screen
@@ -234,17 +234,17 @@ class Deck(Board):
     
     def remove_hearts(self):
         self.lives -= 1          #gets the image for used lives
-        image = ImageTk.PhotoImage(Image.open("heartw.png").resize((80, 80)))
+        image = ImageTk.PhotoImage(Image.open("images/heartw.png").resize((80, 80)))
         if self.grey:
-            image = ImageTk.PhotoImage(Image.open("heartg.png").resize((80,80)))
+            image = ImageTk.PhotoImage(Image.open("images/heartg.png").resize((80,80)))
         self.hearts[self.lives].configure(image= image) #puts in on screen
         self.hearts[self.lives].image = image  #stores it       
 
     def add_hearts(self):    
         if self.lives < len(self.hearts) - 1:
-            image = ImageTk.PhotoImage(Image.open("heart.png").resize((80, 80)))
+            image = ImageTk.PhotoImage(Image.open("images/heart.png").resize((80, 80)))
             if self.grey:
-                image = ImageTk.PhotoImage(Image.open("heartw.png").resize((80,
+                image = ImageTk.PhotoImage(Image.open("images/heartw.png").resize((80,
                                                                            80)))
             self.hearts[self.lives].configure(image=image) #turns used into new
             self.hearts[self.lives].image = image
@@ -383,4 +383,5 @@ class MemoryGame(tk.Tk):
         
 if __name__ == "__main__":   
     game = MemoryGame("Mario Memory Mayhem")
+
     game.mainloop() #starts the loop
